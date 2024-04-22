@@ -8,8 +8,11 @@ created : 2021-05-26 13:55:23 CEST
 """
 
 
+from typing import Any
 from csvexport.actions import csvexport
 from django.contrib import admin
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
 
 from . import models
 
@@ -38,7 +41,7 @@ class TaskFollowupRsvpAdmin(admin.ModelAdmin):
 
 @admin.register(models.TaskRecommendation)
 class TaskRecommendationAdmin(admin.ModelAdmin):
-    pass
+    list_select_related = ("resource",)
 
 
 # eof

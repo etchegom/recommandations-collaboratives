@@ -46,6 +46,12 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5432:5432
-
+  cache:
+    image: redis:alpine
+    restart: unless-stopped
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
 volumes:
   postgres-data:

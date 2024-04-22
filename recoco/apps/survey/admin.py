@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
 from model_clone import CloneModelAdmin
 
 from . import models
@@ -36,6 +38,14 @@ class QuestionSetAdmin(admin.ModelAdmin):
     @admin.display(description="Question count")
     def q_count(self, obj):
         return obj.questions.count()
+
+    def get_queryset(self, request: HttpRequest) -> QuerySet[models.QuestionSet]:
+        return (
+            super()
+            .get_queryset(request)
+            .select_related("survey")
+            .prefetch_related("questions")
+        )
 
 
 @admin.register(models.Question)

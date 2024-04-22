@@ -11,6 +11,8 @@ created : 2021-05-26 13:55:23 CEST
 from csvexport.actions import csvexport
 from django.contrib import admin
 from django.db.models import Count, F, Q
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
 from ordered_model.admin import OrderedInlineModelAdminMixin, OrderedTabularInline
 
 from recoco.apps.tasks import models as task_models
@@ -120,8 +122,8 @@ class ProjectAdmin(OrderedInlineModelAdminMixin, admin.ModelAdmin):
 @admin.register(models.UserProjectStatus)
 class UserProjectStatusAdmin(admin.ModelAdmin):
     list_display = ["project", "user", "status"]
-
     list_filter = ["site"]
+    list_select_related = ("project__commune", "user")
 
 
 @admin.register(models.Topic)
@@ -139,6 +141,7 @@ class NoteAdmin(admin.ModelAdmin):
     search_fields = ["content", "tags", "project__name"]
     list_filter = ["tags", "created_on"]
     list_display = ["created_on", "project_name", "tags"]
+    list_select_related = ("project",)
 
     def project_name(self, o):
         return o.project.name
@@ -149,6 +152,7 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ["description", "the_file"]
     list_filter = ["created_on"]
     list_display = ["created_on", "description", "the_file"]
+    list_select_related = ("project",)
 
 
 # eof
