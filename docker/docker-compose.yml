@@ -22,6 +22,7 @@ services:
       SECRET_KEY: SECRET_KEY
     ports:
       - 8000:8000
+
   front:
     build:
       context: ..
@@ -31,10 +32,11 @@ services:
         NODE_VERSION: "lts/*"
     volumes:
       - ..:/workspace:cached
-    working_dir: /workspace/recoco/frontend 
+    working_dir: /workspace/recoco/frontend
     command: bash -c "yarn install && yarn dev"
     ports:
       - 3000:3000
+
   db:
     image: postgres:13.5
     restart: unless-stopped
@@ -46,6 +48,14 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5432:5432
+
+  cache:
+    image: redis:alpine
+    restart: unless-stopped
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
 
 volumes:
   postgres-data:

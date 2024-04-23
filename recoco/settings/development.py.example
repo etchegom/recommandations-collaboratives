@@ -42,6 +42,41 @@ DATABASES = {
     }
 }
 
+# Cache
+# https://django-dbtemplates.readthedocs.io/en/latest/advanced.html#caching
+# https://github.com/ecometrica/django-multisite
+
+CACHE_MULTISITE_ALIAS = "multisite"
+CACHE_MULTISITE_KEY_PREFIX = "ms_"
+
+CACHE_HOST = "cache"
+# CACHE_HOST = "127.0.0.1"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{CACHE_HOST}:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    },
+    "dbtemplates": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{CACHE_HOST}:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    },
+    "multisite": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{CACHE_HOST}:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+        "TIMEOUT": 60 * 60 * 24,  # 24 hours
+    },
+}
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
