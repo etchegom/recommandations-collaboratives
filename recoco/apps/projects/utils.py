@@ -313,7 +313,9 @@ def get_active_project(request):
 
     if project_id:
         try:
-            project = models.Project.on_site.get(id=project_id)
+            project = models.Project.on_site.select_related("commune").get(
+                id=project_id
+            )
         except models.Project.DoesNotExist:
             pass
     else:

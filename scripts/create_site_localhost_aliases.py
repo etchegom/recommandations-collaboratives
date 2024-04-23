@@ -7,7 +7,12 @@
 
 from django.contrib.sites.models import Site
 
+from multisite.models import Alias
+
 for site in Site.objects.all():
+    print(site.domain.split("."))
     hostname = site.domain.split(".")[0]
     staging_fqdn = f"{hostname}.localhost"
-    site.aliases.create(domain=staging_fqdn, redirect_to_canonical=False)
+    Alias.objects.update_or_create(
+        domain=staging_fqdn, defaults={"site": site, "redirect_to_canonical": False}
+    )
