@@ -40,8 +40,20 @@ def mec_metrics(nb_days: int = 7):
         print(f"\t- Nombre de projets déposés: {qs.count()}")
 
     # 5. Nombre de recommandations par statut
-    qs = Task.objects.filter(site__pk=mec_site_id)
-    print(f"\t- Nombre de recommandations: {qs.count()}")
+    print("Pourcentage de recommandations par statut de projet:")
+    agg = Task.objects.filter(site__pk=mec_site_id).aggregate(
+        **{
+            f"{status.lower()}": ExpressionWrapper(
+                expression=Count("pk", filter=Q(project__status=status))
+                * 100
+                / Count("pk"),
+                output_field=DecimalField(max_digits=30, decimal_places=4),
+            )
+            for status in [s[0] for s in Project.PROJECT_STATES]
+        }
+    )
+    for k, v in agg.items():
+        print(f"\t- Statut {k.upper()}: {v}%")
 
     # 6. % / statut
     print("Pourcentage de projets par statut:")
