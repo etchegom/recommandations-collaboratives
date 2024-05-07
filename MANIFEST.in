@@ -9,4 +9,5 @@ recursive-include recoco/apps/resources/static *.*
 recursive-include recoco/apps/survey/static *.*
 recursive-include recoco/apps/resources *.md
 recursive-include recoco/sql/ *.sql
+recursive-include recoco/apps/metrics/sql_queries *.sql
 recursive-include recoco *.html
