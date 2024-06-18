@@ -27,14 +27,13 @@ class SessionAnswersView(ListAPIView):
     pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
+        project_ids = Project.on_site.for_user(self.request.user).values_list(
+            "id", flat=True
+        )
         try:
             session = Session.objects.get(
-                project__in=Project.on_site.for_user(self.request.user).values_list(
-                    "id", flat=True
-                ),
-                id=self.kwargs["session_id"],
+                project__in=project_ids, id=self.kwargs["session_id"]
             )
+            return session.answers.all()
         except Session.DoesNotExist:
             return Answer.objects.none()
-
-        return session.answers.all()
