@@ -11,7 +11,6 @@ from recoco.apps.projects.views import rest as projects_rest
 from recoco.apps.resources import rest as resources_rest
 from recoco.apps.tasks.views import rest as tasks_rest
 from recoco.apps.training import rest as training_rest
-from recoco.apps.resources import rest as resources_rest
 from recoco.apps.survey.views import rest as survey_rest
 
 
