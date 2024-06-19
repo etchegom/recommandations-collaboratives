@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    # "allauth.socialaccount.providers.openid_connect",
     "guardian",
     "magicauth",
     "sass_processor",
@@ -326,6 +327,36 @@ ACCOUNT_FORMS = {
     "reset_password_from_key": "recoco.apps.home.forms.UVResetPasswordKeyForm",
     "disconnect": "allauth.socialaccount.forms.DisconnectForm",
 }
+
+SOCIALACCOUNT_PROVIDERS = {
+    # https://docs.allauth.org/en/latest/socialaccount/providers/openid_connect.html
+    "openid_connect": {
+        "OAUTH_PKCE_ENABLED": True,
+        "APPS": [
+            {
+                "provider_id": "moncomptepro",
+                "name": "Mon Compte Pro",
+                "client_id": "<moncomptepro-client-id>",
+                "secret": "<moncomptepro-secret>",
+                "settings": {
+                    "server_url": "https://app-sandbox.moncomptepro.beta.gouv.fr/.well-known/openid-configuration",
+                },
+            },
+        ],
+    }
+}
+# client_name : Mon Espace Collectivité
+# redirect_uris :
+#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/moncomptepro/login/callback/
+#   http://monespacecollectivite.localhost:8000/accounts/oidc/moncomptepro/login/callback/
+# post_logout_redirect_uris :
+#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/moncomptepro/logout/callback/
+#   http://monespacecollectivite.localhost:8000/accounts/oidc/moncomptepro/logout/callback/
+# client_uri :
+#   https://monespacecollectivite.incubateur.anct.gouv.fr/
+#   http://monespacecollectivite.localhost:8000
+# client_description : Mon Espace Collectivité permet de concrétiser vos projets du quotidien et ceux du Contrat de relance et de transition écologique (CRTE).
+
 
 # Django vite
 DJANGO_VITE_ASSETS_PATH = BASE_DIR / "frontend/dist"
