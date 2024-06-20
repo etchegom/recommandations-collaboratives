@@ -1,11 +1,12 @@
+from django.contrib import admin
+from django.contrib.admin import StackedInline
 from django_webhook.admin import (
     WebhookAdmin as BaseWebhookAdmin,
+)
+from django_webhook.admin import (
     WebhookSecretInline as BaseWebhookSecretInline,
 )
 from django_webhook.models import Webhook
-from django.contrib.admin import StackedInline
-
-from django.contrib import admin
 
 from .models import WebhookSite
 

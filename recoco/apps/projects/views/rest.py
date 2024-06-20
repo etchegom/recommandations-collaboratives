@@ -28,8 +28,8 @@ from recoco.utils import (
 from .. import models, signals
 from ..serializers import (
     ProjectForListSerializer,
-    UserProjectSerializer,
     TopicSerializer,
+    UserProjectSerializer,
     UserProjectStatusForListSerializer,
     UserProjectStatusSerializer,
 )

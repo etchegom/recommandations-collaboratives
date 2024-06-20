@@ -8,9 +8,9 @@ from recoco.apps.geomatics import rest as geomatics_rest
 from recoco.apps.home import rest as home_rest
 from recoco.apps.projects.views import rest as projects_rest
 from recoco.apps.resources import rest as resources_rest
+from recoco.apps.survey.views import rest as survey_rest
 from recoco.apps.tasks.views import rest as tasks_rest
 from recoco.apps.training import rest as training_rest
-from recoco.apps.survey.views import rest as survey_rest
 
 router = routers.DefaultRouter()
 

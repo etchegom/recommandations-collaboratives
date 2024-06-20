@@ -1,12 +1,11 @@
 import pytest
 from django.contrib.sites.models import Site
 from django_webhook.models import WebhookTopic
-
-from model_bakery import baker
 from freezegun import freeze_time
+from model_bakery import baker
 
-from recoco.apps.projects.models import Project
 from recoco.apps.geomatics.models import Commune
+from recoco.apps.projects.models import Project
 
 from ..models import WebhookSite
 from ..signals import WebhookSignalListener

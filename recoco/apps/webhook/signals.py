@@ -1,10 +1,12 @@
-from django_webhook.signals import SignalListener
+from typing import Any
+
 from django_webhook.models import Webhook
+from django_webhook.signals import SignalListener
+
 from recoco.apps.projects.models import Project
 from recoco.apps.projects.serializers import ProjectSerializer
-from recoco.apps.survey.serializers import AnswerSerializer
 from recoco.apps.survey.models import Answer
-from typing import Any
+from recoco.apps.survey.serializers import AnswerSerializer
 
 
 class WebhookSignalListener(SignalListener):

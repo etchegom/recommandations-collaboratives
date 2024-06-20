@@ -1,7 +1,8 @@
 from rest_framework import serializers
+
 from recoco.apps.home.serializers import UserSerializer
 
-from .models import Answer, Question, Choice, Session
+from .models import Answer, Choice, Question, Session
 
 
 class ChoiceSerializer(serializers.ModelSerializer):

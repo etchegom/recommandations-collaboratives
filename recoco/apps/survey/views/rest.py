@@ -1,6 +1,6 @@
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
 
 from recoco.apps.projects.models import Project
 
