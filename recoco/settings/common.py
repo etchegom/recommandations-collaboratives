@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    # "allauth.socialaccount.providers.openid_connect",
+    "allauth.socialaccount.providers.openid_connect",
     "guardian",
     "magicauth",
     "sass_processor",
@@ -335,28 +335,23 @@ SOCIALACCOUNT_PROVIDERS = {
         "OAUTH_PKCE_ENABLED": True,
         "APPS": [
             {
-                "provider_id": "moncomptepro",
-                "name": "Mon Compte Pro",
-                "client_id": "<moncomptepro-client-id>",
-                "secret": "<moncomptepro-secret>",
+                "provider_id": "agentconnect",
+                "name": "AgentConnect",
+                "client_id": "<agentconnect-client-id>",
+                "secret": "<agentconnect-secret>",
                 "settings": {
-                    "server_url": "https://app-sandbox.moncomptepro.beta.gouv.fr/.well-known/openid-configuration",
+                    "server_url": "https://fca.integ01.dev-agentconnect.fr/api/v2/.well-known/openid-configuration",
                 },
             },
         ],
     }
 }
-# client_name : Mon Espace Collectivité
 # redirect_uris :
-#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/moncomptepro/login/callback/
-#   http://monespacecollectivite.localhost:8000/accounts/oidc/moncomptepro/login/callback/
+#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/agentconnect/login/callback/
+#   http://monespacecollectivite.localhost:8000/accounts/oidc/agentconnect/login/callback/
 # post_logout_redirect_uris :
-#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/moncomptepro/logout/callback/
-#   http://monespacecollectivite.localhost:8000/accounts/oidc/moncomptepro/logout/callback/
-# client_uri :
-#   https://monespacecollectivite.incubateur.anct.gouv.fr/
-#   http://monespacecollectivite.localhost:8000
-# client_description : Mon Espace Collectivité permet de concrétiser vos projets du quotidien et ceux du Contrat de relance et de transition écologique (CRTE).
+#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/agentconnect/logout/callback/
+#   http://monespacecollectivite.localhost:8000/accounts/oidc/agentconnect/logout/callback/
 
 
 # Django vite

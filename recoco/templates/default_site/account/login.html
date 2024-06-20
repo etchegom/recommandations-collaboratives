@@ -2,6 +2,7 @@
 {% load sass_tags %}
 {% load static %}
 {% load i18n %}
+{% load socialaccount %}
 {% block head_title %}
   {% trans "Sign In" %}
 {% endblock head_title %}
@@ -36,16 +37,20 @@
         </h1>
       </div>
 
+      <h4 class="fr-mb-2w d-block">Se connecter via AgentConnect</h4>
+
       <div class="fr-connect-group">
-        <button class="fr-connect">
-            <span class="fr-connect__login">S’identifier avec</span>
-            <span class="fr-connect__brand">MonComptePro</span>
-        </button>
+        <form action="{% provider_login_url 'agentconnect' %}">
+          <button class="fr-connect">
+              <span class="fr-connect__login">S’identifier avec</span>
+              <span class="fr-connect__brand">AgentConnect</span>
+          </button>
+        </form>
         <p>
-            <a href="https://moncomptepro.beta.gouv.fr/"
+            <a href="https://agentconnect.gouv.fr/"
               target="_blank"
               rel="noopener"
-              title="Qu’est-ce que MonComptePro ? - nouvelle fenêtre">Qu’est-ce que MonComptePro ?</a>
+              title="Qu’est-ce que AgentConnect ? - nouvelle fenêtre">Qu’est-ce que AgentConnect ?</a>
         </p>
       </div>
 
