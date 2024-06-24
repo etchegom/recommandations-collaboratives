@@ -329,30 +329,35 @@ ACCOUNT_FORMS = {
     "disconnect": "allauth.socialaccount.forms.DisconnectForm",
 }
 
+SOCIALACCOUNT_ADAPTER = "recoco.auth.social.SocialAccountAdapter"
+
+# OPENID_CONNECT_URL_PREFIX = "oidc"
+
 SOCIALACCOUNT_PROVIDERS = {
     # https://docs.allauth.org/en/latest/socialaccount/providers/openid_connect.html
     "openid_connect": {
-        "OAUTH_PKCE_ENABLED": True,
         "APPS": [
             {
                 "provider_id": "agentconnect",
                 "name": "AgentConnect",
-                "client_id": "<agentconnect-client-id>",
-                "secret": "<agentconnect-secret>",
+                "client_id": os.getenv("AGENTCONNECT_CLIENT_ID", ""),
+                "secret": os.getenv("AGENTCONNECT_SECRET", ""),
                 "settings": {
                     "server_url": "https://fca.integ01.dev-agentconnect.fr/api/v2/.well-known/openid-configuration",
+                    "token_auth_method": "client_secret_post",
                 },
             },
         ],
-    }
+        "SCOPE": [
+            "openid",
+        ],
+        "AUTH_PARAMS": {
+            "acr_values": "eidas1",
+            # FIXME: This is a hack to avoid the "nonce" parameter being added to the request
+            "nonce": "77515825905845157571632541457023",
+        },
+    },
 }
-# redirect_uris :
-#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/agentconnect/login/callback/
-#   http://monespacecollectivite.localhost:8000/accounts/oidc/agentconnect/login/callback/
-# post_logout_redirect_uris :
-#   https://monespacecollectivite.incubateur.anct.gouv.fr/accounts/oidc/agentconnect/logout/callback/
-#   http://monespacecollectivite.localhost:8000/accounts/oidc/agentconnect/logout/callback/
-
 
 # Django vite
 DJANGO_VITE_ASSETS_PATH = BASE_DIR / "frontend/dist"

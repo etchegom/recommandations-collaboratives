@@ -40,8 +40,8 @@
       <h4 class="fr-mb-2w d-block">Se connecter via AgentConnect</h4>
 
       <div class="fr-connect-group">
-        <form action="{% provider_login_url 'agentconnect' %}">
-          <button class="fr-connect">
+        <form action="{% provider_login_url 'agentconnect' process='connect' %}">
+            <button class="fr-connect">
               <span class="fr-connect__login">S’identifier avec</span>
               <span class="fr-connect__brand">AgentConnect</span>
           </button>
