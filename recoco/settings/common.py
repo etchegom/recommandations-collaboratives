@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     "recoco.apps.training",
     "recoco.apps.pages",
     "recoco.apps.metrics",
+    "recoco.apps.proconnect",
     "crispy_forms",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -329,13 +330,13 @@ ACCOUNT_FORMS = {
     "disconnect": "allauth.socialaccount.forms.DisconnectForm",
 }
 
-SOCIALACCOUNT_ADAPTER = "recoco.auth.social.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "recoco.apps.proconnect.adapters.SocialAccountAdapter"
 
-# OPENID_CONNECT_URL_PREFIX = "oidc"
+SOCIALACCOUNT_OPENID_CONNECT_URL_PREFIX = "oidc"
 
 SOCIALACCOUNT_PROVIDERS = {
     # https://docs.allauth.org/en/latest/socialaccount/providers/openid_connect.html
-    "openid_connect": {
+    "agentconnect": {
         "APPS": [
             {
                 "provider_id": "agentconnect",
@@ -353,8 +354,6 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         "AUTH_PARAMS": {
             "acr_values": "eidas1",
-            # FIXME: This is a hack to avoid the "nonce" parameter being added to the request
-            "nonce": "77515825905845157571632541457023",
         },
     },
 }
