@@ -112,7 +112,7 @@ function boardProjectsApp() {
     async postProcessData(data) {
       const departments = this.extractAndCreateAdvisorDepartments(data);
       const regionsData = await api.get(regionsUrl());
-      this.constructRegionsFilter(departments, regionsData.data);
+      this.constructRegionsFilter(departments, regionsData.data.results);
     },
     extractAndCreateAdvisorDepartments(projects) {
       const departments = [];
