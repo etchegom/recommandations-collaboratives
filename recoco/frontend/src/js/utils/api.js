@@ -39,7 +39,7 @@ export default instance;
 
 // Projects
 export function projectListUrl() {
-  return `/api/projects/`;
+  return `/api/projects/?limit=1000`;
 }
 
 export function projectUrl(projectId) {
@@ -107,17 +107,17 @@ export function resourcePreviewUrl(resourceId) {
 
 // Regions
 export function regionListUrl() {
-  return `/api/regions/`;
+  return `/api/regions/?limit=1000`;
 }
 
 // Communes
 export function communeListUrl(postal) {
-  return `/api/communes/?postal=${postal}`;
+  return `/api/communes/?postal=${postal}&limit=1000`;
 }
 
 // Resources
 export function resourceListUrl() {
-  return `/api/resources/`;
+  return `/api/resources/?limit=1000`;
 }
 
 // Challenges
