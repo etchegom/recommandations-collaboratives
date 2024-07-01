@@ -1,4 +1,5 @@
-from django.db import models
+from django.contrib.auth.models import User
+from django.db import models, transaction
 from model_utils.models import TimeStampedModel
 
 from recoco.apps.projects.models import Project
@@ -70,6 +71,22 @@ class DSFolder(TimeStampedModel):
         super().save(*args, **kwargs)
 
     def update_or_create_action(self):
-        pass
-        # if self.action:
-        #     pass
+        # FIXME: figure out how is the author of this action
+        author = User.objects.filter(is_staff=True).first()
+
+        action_data = {
+            "site": self.project.sites.first(),
+            "project": self.project,
+            "resource": self.ds_resource.resource,
+            "created_by": author,
+            "content": "TEMPHHH",
+            "status": Task.DONE,
+        }
+
+        if self.action:
+            Task.objects.filter(pk=self.action.id).update(**action_data)
+            return
+
+        with transaction.atomic():
+            self.action = Task.objects.create(**action_data)
+            self.save()

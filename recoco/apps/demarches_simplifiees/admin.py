@@ -24,7 +24,7 @@ class DSResourceAdmin(admin.ModelAdmin):
             load_ds_resource_schema.delay(ds_resource.id)
             self.message_user(
                 request,
-                f"Tâche déclenchée pour la resource {ds_resource.name}.",
+                f"Tâche déclenchée pour la resource '{ds_resource.name}'.",
                 messages.SUCCESS,
             )
 
@@ -32,15 +32,40 @@ class DSResourceAdmin(admin.ModelAdmin):
 @admin.register(DSFolder)
 class DSFolderAdmin(admin.ModelAdmin):
     list_display = (
+        "dossier_id",
         "project",
         "ds_resource",
         "action",
-        "dossier_id",
-        "dossier_url",
-        "dossier_number",
     )
+
     search_fields = (
         "project",
         "ds_resource",
         "dossier_id",
     )
+
+    readonly_fields = (
+        "project",
+        "action",
+        "dossier_id",
+        "dossier_url",
+        "dossier_number",
+        "dossier_prefill_token",
+        "state",
+    )
+
+    actions = ("update_or_create_action",)
+
+    @admin.action(
+        description="Créer ou mettre à jour l'action associée au dossier pré-rempli"
+    )
+    def update_or_create_action(
+        self, request: HttpRequest, queryset: QuerySet[DSResource]
+    ):
+        for ds_folder in queryset:
+            ds_folder.update_or_create_action()
+            self.message_user(
+                request,
+                f"Action créée ou mise à jour pour le dossier '{ds_folder.dossier_id}'.",
+                messages.SUCCESS,
+            )
