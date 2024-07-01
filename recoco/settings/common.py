@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     "wagtail.admin",
     "wagtail",
     "django_celery_results",
+    "django_json_widget",
 ]
 
 SITE_ID = SiteID(default=1)

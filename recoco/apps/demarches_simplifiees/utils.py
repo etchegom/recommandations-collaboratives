@@ -1,6 +1,8 @@
+import hashlib
+import json
 from typing import Any
 
 
-def dict_to_hash(data: dict[str, Any]) -> str:
-    # TODO: test this trick
-    return hash(frozenset(data.items()))
+def hash_data(data: dict[str, Any]) -> str:
+    s_data = json.dumps(data, sort_keys=True).encode("utf-8")
+    return hashlib.sha256(s_data).hexdigest()

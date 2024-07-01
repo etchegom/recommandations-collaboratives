@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
-from django.db.models import QuerySet
+from django.db.models import JSONField, QuerySet
 from django.http import HttpRequest
+from django_json_widget.widgets import JSONEditorWidget
 
 from .models import DSFolder, DSResource
 from .tasks import load_ds_resource_schema
@@ -12,6 +13,10 @@ class DSResourceAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
     actions = ("load_schema",)
+
+    formfield_overrides = {
+        JSONField: {"widget": JSONEditorWidget},
+    }
 
     @admin.action(description="Charger le schéma publique de la démarche simplifiée")
     def load_schema_action(self, request: HttpRequest, queryset: QuerySet[DSResource]):

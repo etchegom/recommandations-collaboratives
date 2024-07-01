@@ -6,9 +6,7 @@ from recoco.apps.projects.models import Project
 
 from .models import DSFolder, DSResource
 from .services import build_ds_data_from_project, find_ds_resource_for_project
-from .utils import dict_to_hash
-
-# https://doc.demarches-simplifiees.fr/pour-aller-plus-loin/api-de-preremplissage#preremplissage-en-post
+from .utils import hash_data
 
 
 # TODO: handle task retry
@@ -42,28 +40,29 @@ def update_or_create_ds_action(project_id: int):
         return
 
     ds_resource: DSResource = find_ds_resource_for_project(project=project)
-    if ds_resource is None:
+    if ds_resource is None or ds_resource.number is None:
         return
 
-    data = build_ds_data_from_project(
+    content = build_ds_data_from_project(
         project=project,
         ds_resource=ds_resource,
     )
-    if not len(data):
+    if not len(content):
         return
 
-    hash_data = dict_to_hash(data)
     if DSFolder.objects.filter(
-        project=project, ds_resource=ds_resource, content_hash=hash_data
+        project=project,
+        ds_resource=ds_resource,
+        content_hash=hash_data(content),
     ).exists():
         return
 
     resp = requests.post(
-        url=f"{settings.DS_API_BASE_URL}/demarches/{ds_resource.name}/dossiers",
-        json=data,
+        url=f"{settings.DS_API_BASE_URL}/demarches/{ds_resource.number}/dossiers",
+        json=content,
         timeout=30,
     )
-    if resp.status_code != 200:
+    if resp.status_code != 201:
         # TODO: handle error
         return
 
@@ -71,7 +70,7 @@ def update_or_create_ds_action(project_id: int):
         project=project,
         ds_resource=ds_resource,
         defaults={
-            "data": data,
+            "content": content,
             **resp.json(),
         },
     )
