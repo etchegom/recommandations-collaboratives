@@ -37,13 +37,21 @@ instance.interceptors.response.use(
 
 export default instance;
 
-// Projects :
-export function projectsUrl() {
+// Projects
+export function projectListUrl() {
   return `/api/projects/`;
 }
 
-export function userProjectStatusUrl() {
+export function projectUrl(projectId) {
+  return `/api/projects/${projectId}/`;
+}
+
+export function userProjectStatusListUrl() {
   return `/api/userprojectstatus/`;
+}
+
+export function userProjectStatusUrl(userProjectStatusId) {
+  return `/api/userprojectstatus/${userProjectStatusId}/`;
 }
 
 // Organization
@@ -56,7 +64,7 @@ export function searchTopicsUrl(search, restrict_to) {
   return `/api/topics/?search=${search}&restrict_to=${restrict_to}`;
 }
 
-// Tasks :
+// Tasks
 export function taskUrl(projectId, taskId) {
   return `/api/projects/${projectId}/tasks/${taskId}/`;
 }
@@ -97,9 +105,19 @@ export function resourcePreviewUrl(resourceId) {
   return `/ressource/${resourceId}/embed`;
 }
 
-// Regions :
-export function regionsUrl() {
+// Regions
+export function regionListUrl() {
   return `/api/regions/`;
+}
+
+// Communes
+export function communeListUrl(postal) {
+  return `/api/communes/?postal=${postal}`;
+}
+
+// Resources
+export function resourceListUrl() {
+  return `/api/resources/`;
 }
 
 // Challenges
