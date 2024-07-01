@@ -1,7 +1,7 @@
 import Alpine from 'alpinejs';
 import { generateUUID } from '../utils/uuid';
 
-import api, { regionsUrl } from '../utils/api';
+import api, { regionsUrl, projectsUrl } from '../utils/api';
 
 Alpine.data('KanbanProjects', boardProjectsApp);
 
@@ -31,9 +31,8 @@ function boardProjectsApp() {
       },
     ],
     async getData(postProcess = true) {
-      const json = await api.get('/api/projects/');
-
-      const data = json.data.map((d) =>
+      const json = await api.get(projectsUrl());
+      const data = json.data.results.map((d) =>
         Object.assign(d, {
           uuid: generateUUID(),
         })

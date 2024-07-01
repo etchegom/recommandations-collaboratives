@@ -6,7 +6,7 @@ Alpine.store('projects', {
   async getProjects() {
     const json = await api.get(userProjectStatusUrl());
 
-    return (this.projects = json.data);
+    return (this.projects = json.data.results);
   },
 });
 
