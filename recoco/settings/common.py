@@ -87,7 +87,7 @@ INSTALLED_APPS = [
     "recoco.apps.training",
     "recoco.apps.pages",
     "recoco.apps.metrics",
-    "recoco.apps.demarches_simplifies",
+    "recoco.apps.demarches_simplifiees",
     "crispy_forms",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -398,7 +398,13 @@ MATERIALIZED_VIEWS_SQL_DIR = BASE_DIR / "apps/metrics/sql_queries"
 BAKER_CUSTOM_CLASS = "recoco.tests.CustomBaker"
 
 # CELERY
+CELERY_TIMEZONE = "Europe/Paris"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_RESULT_BACKEND = "django-db"
+
 
 # Metabase
 METABASE_HOST = os.environ.get("METABASE_HOST")
@@ -406,9 +412,7 @@ METABASE_API_KEY = os.environ.get("METABASE_API_KEY")
 
 
 # Démarches simplifiées
-DS_API_BASE_URL = os.environ.get(
-    "DS_API_URL",
-    default="https://demarches-simplifiees.fr/api/public/v1/",
-)
+DS_BASE_URL = "https://www.demarches-simplifiees.fr/"
+DS_API_BASE_URL = f"{DS_BASE_URL}api/public/v1/"
 
 # eof
